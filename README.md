@@ -22,7 +22,7 @@ review_plastic-waterbirds_Brazil
 │   └── taxa_* .csv
 ├── results
 │   └── (plots & table)
-├── script
+├── scripts
 │   ├── data_analysis.R
 │   └── table1.R
 └── review_plastic-waterbirds_Brazil.Rproj.Rproj
