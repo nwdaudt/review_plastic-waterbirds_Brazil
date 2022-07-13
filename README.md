@@ -31,7 +31,7 @@ review_plastic-waterbirds_Brazil
 In `data_raw` you will find the raw data saved as .csv files. 
 * `index_data` summarises all information gathered for each document, and specifies the document "ID" which links to `orders_*`, `families_*` and `species_*` files;
 * `orders_*`, `families_*` and `species_*` files summarises (yes/no == 1/0) if that order, family or species was `_analysed` by that study, and in `_with_plastic` if it reports plastic for that particular taxa;
-* `taxa_*` shows number of species by order of family, how many were analysed regarding plastic interactions, and observations on our choices of inclusion/exclusion of species within that taxon.
+* `taxa_*` shows number of species by `_order` or `_family`, how many were analysed regarding plastic interactions, and observations on our choices of inclusion/exclusion of species within that taxon.
 
 You should be able to reproduce all results using scrips in `scripts` and files from `data_raw`. At the end of both R scripts you can find the `sessionInfo()` and associated list of all packages, versions, and dependencies needed.
 
