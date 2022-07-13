@@ -1,0 +1,13 @@
+order,spp_total_order,spp_analysed_order,obs
+Anseriformes,25,0,
+Phoenicopteriformes,2,0,
+Podicipediformes,4,1,
+Gruiformes,30,1,"We did not consider families Psophiidae, Ralliidae, and genera Anurolimnas, Rufirallus, Micropygia."
+Charadriiformes,65,20,We did not consider family Burhinidae.
+Phaethontiformes,2,1,
+Sphenisciformes,1,1,
+Procellariiformes,34,26,
+Ciconiiformes,3,1,
+Suliformes,8,5,
+Pelecaniformes,27,8,"We did not consider family Pelecanidae (as there is only one species considered ‘Vagrant’ for the country [Pacheco et al. 2021, Ornithology Research; p. 22])."
+Coraciiformes,5,1,We did not consider family Momotidae.

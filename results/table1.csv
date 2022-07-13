@@ -1,0 +1,22 @@
+Species,Interaction,Studies,Studies with plastics (%),Year (range),Sample size (total),Sample size (range),Frequency of occurrence (mean ± SD),Frequency of occurrence (range)
+Spheniscus magellanicus,ingestion,22,100%,1987–2021,1978,9–470,35.6±24.1,2–87
+Spheniscus magellanicus,entanglement,3,100%,1999–2010,15031,1–14875,34.2±57,0.05–100
+Puffinus puffinus,ingestion,15,80%,1982–2021,260,1–52,35.9±24.1,0–85.7
+Puffinus puffinus,entanglement,1,0%,1999–2010,295,295–295,0±NA,0–0
+Procellaria aequinoctialis,ingestion,14,100%,1982–2021,330,1–114,55.9±23.4,25–100
+Procellaria aequinoctialis,entanglement,1,100%,1999–2010,256,256–256,1.2±NA,1.2–1.2
+Ardenna gravis,ingestion,12,100%,1982–2016,377,1–121,81.9±14.5,56.3–100
+Ardenna gravis,entanglement,1,100%,1999–2010,428,428–428,0.2±NA,0.23–0.23
+Thalassarche chlororhynchos,ingestion,11,81.8%,1982–2021,115,1–27,26.3±31,0–100
+Thalassarche chlororhynchos,entanglement,2,100%,1999–2010,250,80–170,1.2±0,1.2–1.2
+Sula leucogaster,nest,9,44.4%,1984–2016,1177,31–288,20.2±24.4,0–61
+Sula leucogaster,ingestion,4,75%,2006–2021,203,12–126,13.2±13.5,0–30
+Thalassarche melanophris,ingestion,11,100%,1982–2016,283,2–59,31.4±31.2,6–100
+Thalassarche melanophris,entanglement,1,100%,1999–2010,207,207–207,1.9±NA,1.9–1.9
+Calonectris borealis,ingestion,9,88.9%,1982–2021,391,1–185,57.3±34.9,0–100
+Calonectris borealis,entanglement,1,0%,1999–2010,349,349–349,0±NA,0–0
+Larus dominicanus,ingestion,7,42.9%,1994–2021,400,2–212,10.5±19.2,0–50
+Larus dominicanus,nest,2,50%,1992–1999,107,107–107,0.4±0.6,0–0.9
+Larus dominicanus,entanglement,1,100%,1999–2010,0,Inf–-Inf,NaN±NA,Inf–-Inf
+Ardenna grisea,ingestion,7,85.7%,1982–2013,64,1–27,53.8±30.6,0–100
+Ardenna grisea,entanglement,1,0%,1999–2010,142,142–142,0±NA,0–0
