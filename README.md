@@ -45,3 +45,5 @@ You should be able to reproduce all results using scrips in `scripts` and files 
 Please refer to the original article if using any piece of this repository (code and/or data). This repository is under CC BY 4.0 license.
 
 Daudt, N.W.; Bugoni, L.; Nunes, G.T. (2022) A synthesis of interactions between waterbirds and plastics in Brazil reveals substantial knowledge gaps and opportunities for research. (in review)
+
+Thanks!
