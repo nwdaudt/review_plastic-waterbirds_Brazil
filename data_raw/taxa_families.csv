@@ -4,7 +4,7 @@ Anatidae,23,0,
 Phoenicopteridae,2,0,
 Podicipedidae,4,1,
 Aramidae,1,0,
-Rallidae,28,1,"We did not consider genera Anurolimnas, Rufirallus, Micropygia."
+Rallidae,30,2,"We did not consider genera Anurolimnas, Rufirallus, Micropygia."
 Heliornithidae,1,0,
 Charadriidae,10,1,
 Haematopodidae,1,1,
@@ -16,7 +16,7 @@ Laridae,22,13,"We considered Sterna dougallii in the total number of species (Pa
 Phaethontidae,2,1,
 Spheniscidae,1,1,
 Diomedeidae,9,7,"We considered Diomedea sanfordi, Phoebetria palpebrata, and Thalassarche cauta in the total number of species (Although Pacheco et al. 2021 [Ornithology Research] classify them as ‘Vagrants’; p. 20)."
-Oceanitidae,3,0,"*Although Nacimento et al. 2022 (Biodiversidade Brasileira, 12(1): 15-24) report on ‘Oceanites oceanicus’, it is not included here"
+Oceanitidae,3,0,"*Although Nacimento et al. 2022 (Biodiversidade Brasileira, 12(1): 15-24) report on ‘Oceanites oceanicus’, it is not included here, as it was after the predetermined period up to 2021."
 Hydrobatidae,1,0,
 Procellariidae,21,19,"We considered Halobaena caerulea in the total number of species, as one study analysed stomach contents from this species."
 Ciconiidae,3,1,

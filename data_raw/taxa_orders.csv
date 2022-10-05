@@ -2,7 +2,7 @@ order,spp_total_order,spp_analysed_order,obs
 Anseriformes,25,0,
 Phoenicopteriformes,2,0,
 Podicipediformes,4,1,
-Gruiformes,30,1,"We did not consider families Psophiidae, Ralliidae, and genera Anurolimnas, Rufirallus, Micropygia."
+Gruiformes,32,2,"We did not consider the family Psophiidae, and genera Anurolimnas, Rufirallus, Micropygia (from Ralliidae family)."
 Charadriiformes,65,20,We did not consider family Burhinidae.
 Phaethontiformes,2,1,
 Sphenisciformes,1,1,

@@ -3,10 +3,10 @@
 ## reveals substantial knowledge gaps and opportunities for research
 ## 
 ## Nicholas W Daudt
-## April 2022
+## Sept 2022
 ##
 ## @ This codes builds all results presented in the above-mentioned reference.
-## @ At the very end, you can find sessionInfo() details.
+## @ At the very end, you can find `sessionInfo()` details.
 
 ## Libraries ####
 library(tidyverse)
@@ -17,7 +17,7 @@ library(RColorBrewer)
 library(patchwork)
 library(ggspatial)
 
-## Data ####
+#### Data ####
 
 ## .csv files were saved using: 
 ## character set as Unicode UTF-8
@@ -168,47 +168,57 @@ rm(list = "species_analysed", "species_w_plastics")
 taxa_order <- readr::read_csv("./data_raw/taxa_orders.csv")
 taxa_family <- readr::read_csv("./data_raw/taxa_families.csv")
 
-## Results ####
+#### Results ####
 ## General information ####
+
+## From review folders (number of documents):
+# Published -- 
+## 159 w/o plastics + 62 w plastics + 4 'bycatch' + 2 reviews (no new data) = 227
+# Grey -- 
+## 43 w/o plastics + 34 w plastics = 77
+# >> TOTAL NUMBER OF STUDIES SCREENED: 304
 
 ## How many published and grey literature?
 index_raw_data %>%    # Use "raw" here first
   dplyr::filter(YearPublication < 2022) %>%
   dplyr::group_by(Published_Grey) %>%
   dplyr::summarise(n = n())
-# >> Published 60, Grey 34, 1 'double-published' (total of 95)
+# >> Published 61, Grey 34, 1 'double-published' (total of 96)
 
 index_data %>%
   dplyr::group_by(Published_Grey) %>%
   dplyr::summarise(n = n())
-# >> Published 60, Grey 26 (total of 86)
+# >> Published 60, Grey 26 (total of 87)
 
 ## From Grey literature, how many were published later on?
 index_raw_data %>%    # Use "raw" here
   dplyr::filter(YearPublication < 2022) %>%
   dplyr::filter(Published_Grey == "grey") %>%
   dplyr::group_by(if_grey_Published) %>%
-  dplyr::summarise(n = n())
+  dplyr::summarise(n = n()) %>%
+  dplyr::mutate(percentage = n/34*100)
 # >> 8 published, 1 partial, 25 not published
 
 ## In which Language the study was published?
 index_data %>%
   dplyr::group_by(Language) %>%
   dplyr::summarise(n = n())
-# >> 41 English, 44 Portuguese, Spanish 1
+# >> 41 English, 45 Portuguese, Spanish 1
 
 ## From those written in Portuguese, how many were published?
 index_data %>%
   dplyr::filter(Language == "pt") %>%
   dplyr::group_by(Published_Grey) %>%
   dplyr::summarise(n = n())
+# >> 20 published, 25 grey
 
 ## How many documents report on seabirds?
 index_data %>%
   dplyr::filter(Published_Grey == "published" | Published_Grey == "grey") %>%
   dplyr::group_by(is_seabird) %>%
   dplyr::summarise(n = n()) %>%
-  dplyr::mutate('%' = (n/86)*100)
+  dplyr::mutate('%' = (n/87)*100)
+# >> 78% seabirds, 22% non-seabird
 
 ## What are the oldest and newest sample year (and study)?
 index_data %>%
@@ -226,7 +236,7 @@ index_data %>%
 index_data %>%
   dplyr::group_by(BirdCondition) %>%
   dplyr::summarise(n = n())
-# >> alive 32; dead 51; (both) alive_dead 3
+# >> alive 33; dead 51; (both) alive_dead 3
 
 ## Frequency of the sampled number of Orders/Families/Species by study
 
@@ -248,7 +258,7 @@ sd(index_data$MonthsSampled, na.rm = TRUE)
 # >> 29.4 (44.4) months == 2.45 (3.7) years
 
 ## 1. Is there some temporal bias? #############################################
-#### 1.1 GAM model ####
+### 1.1 GAM model ####
 
 # Base data
 histTemporal <- 
@@ -279,18 +289,18 @@ mgcv::plot.gam(gam_p)
 
 summary(gam_p)
 # Parametric coefficients:
-#               Estimate  Std. Error  z value   Pr(>|z|)    
-# (Intercept)    0.7835     0.1116     7.021    2.21e-12 ***
+#              Estimate  Std. Error  z value  Pr(>|z|)    
+# (Intercept)   0.7908     0.1114      7.096  1.28e-12 ***
 #
 # Approximate significance of smooth terms:
-#                     edf    Ref.df  Chi.sq   p-value
-# s(YearPublication)   1      1       5.081    0.0242 *
+#                     edf  Ref.df   Chi.sq   p-value  
+# s(YearPublication)   1      1      5.741    0.0166 *
 # 
-# R-sq.(adj) =  0.0869   Deviance explained = 14.6%
+# R-sq.(adj) =  0.104   Deviance explained = 16.2%
 
 # rm("gam_nb")
 
-#### 1.2 Histogram Published/Grey, with GAM ####
+### 1.2 Histogram Published/Grey, with GAM ####
 
 # Poisson GAM
 gg_histTemporal_gam <-
@@ -314,7 +324,7 @@ gg_histTemporal_gam <-
         legend.position = c(0.1, 0.85),
         legend.text = element_text(size = 12))
 
-#### 1.3 Study aim ~ Year ####
+### 1.3 Study aim ~ Year ####
 
 # Base data
 histAimTemporal <- 
@@ -346,7 +356,7 @@ gg_histAimTemporal <-
         legend.position = c(0.16, 0.675),
         legend.text = element_text(size = 12))
 
-#### 1.4 (Patchwork plots) ####
+### 1.4 (Patchwork plots) ####
 gg_temporal <- gg_histTemporal_gam / gg_histAimTemporal
 
 ggsave(gg_temporal, 
@@ -359,7 +369,7 @@ rm(list =
      "gam_p")
 
 ## 2. Is there some geographical bias? #########################################
-#### 2.1 Any bias in Environments and Biome sampled? ####
+### 2.1 Any bias in Environments and Biome sampled? ####
 
 # >> Environment
 index_data %>% 
@@ -368,15 +378,17 @@ index_data %>%
   dplyr::select(MainSampledEnvironment) %>%
   dplyr::group_by(MainSampledEnvironment) %>% 
   dplyr::summarise(n = n()) %>%
+  dplyr::mutate(percentage = n/87*100) %>%
   dplyr::arrange(desc(n))
 
-# 1 sea                       68
-# 2 estuary                    6
-# 3 freshwater                 5
-# 4 mangrove                   3
-# 5 estuary_sea                2
-# 6 freshwater_estuary_sea     1
-# 7 freshwater_sea             1
+#                              n    percentage
+# 1 sea                       68      78.20
+# 2 estuary                    6       6.90
+# 3 freshwater                 6       6.90
+# 4 mangrove                   3       3.45
+# 5 estuary_sea                2       2.30
+# 6 freshwater_estuary_sea     1       1.15
+# 7 freshwater_sea             1       1.15
 
 # >> Biome
 index_data %>% 
@@ -388,10 +400,10 @@ index_data %>%
   dplyr::arrange(desc(n))
 
 # 1 coastalMarine     79
-# 2 AtlanticForest     6
+# 2 AtlanticForest     7
 # 3 Pampas             1
 
-#### 2.2.1 Data prep and base maps ####
+### 2.2.1 Data prep and base maps ####
 
 ## BASE MAP *************************************************************************
 # Brazil
@@ -492,10 +504,6 @@ brazil_grid <-
                    square = FALSE)
 # mapview::mapview(brazil_grid)
 
-# Crop grid to be around Brazil
-brazil_grid <- brazil_grid[data_sf_union, ]
-# mapview::mapview(brazil_grid)
-
 # Transform it into a simple feature (sf) and create an "grid_id"
 brazil_grid <- 
   brazil_grid %>% 
@@ -532,7 +540,7 @@ n_studies_unpub <-
   sf::st_as_sf()
 # mapview::mapview(n_studies_unpub, zcol = "n")
 
-#### 2.2.2 Resulting maps ####
+### 2.2.2 Resulting maps ####
 
 # Palette "magma" is color-blind friendly (check also 'cividis')
 
@@ -568,7 +576,7 @@ gg_n_studies_magma_unpub <-
         legend.background = element_rect(linetype = "solid", colour = "black"),
         axis.title.y.left = element_blank())
 
-#### 2.2.3 (Patchwork maps) ####
+### 2.2.3 (Patchwork maps) ####
 map_pub_unpub <- 
   gg_n_studies_magma_pub + gg_n_studies_magma_unpub
 
@@ -582,7 +590,7 @@ rm(list =
       "gg_n_studies_magma_pub", "gg_n_studies_magma_unpub")
 
 ## 3. Is there some taxonomic bias? ############################################
-#### 3.1.1 Orders and Families - % species analysed ####
+### 3.1.1 Orders and Families - % species analysed ####
 
 ### Orders
 
@@ -634,14 +642,14 @@ percent_families <-
   ggplot(taxa_families_plot, aes(y = value, x = families_n, fill = factor(variable))) +
   geom_bar(stat = "identity") +
   xlab("") + ylab("%") +
-  scale_fill_grey() + # labels = c("Analysed", "Not analysed")
+  scale_fill_grey() +
   coord_flip() +
   theme_bw() + 
   theme(legend.position = "none",
         axis.text = element_text(size = 12, color = "black"),
         axis.title = element_text(size = 13.5, color = "black", face = "bold"))
 
-#### 3.1.2 Orders and Families - no. studies ####
+### 3.1.2 Orders and Families - no. studies ####
 
 # "Paired" palette is color-blind friendly,
 # besides, it matches blue for 'oceanic' and green for 'continental' =)
@@ -785,7 +793,7 @@ gg_Family <-
         axis.title = element_text(size = 13.5, color = "black", face = "bold"),
         axis.text.y = element_blank())
 
-#### 3.1.3 (Patchwork plots) ####
+### 3.1.3 (Patchwork plots) ####
 ordersss <- 
   percent_orders + gg_Order
 
@@ -804,7 +812,7 @@ rm(list =
      "percent_orders", "gg_Order", "percent_families", "gg_Family", 
      "ordersss", "familiesss","gg_Taxa")
 
-#### 3.2 The most studied/reported species ####
+### 3.2 The most studied/reported species ####
 head(species_final, n = 10)
 # # Species                       n_studies   with_plastics   without_plastics   FO%
 # 1 Spheniscus_magellanicus             24              24                  0      100  
@@ -831,10 +839,6 @@ study_aim <-
   index_data %>% 
   dplyr::filter(! Published_Grey == "extra_latlon_pub" &
                 ! Published_Grey == "extra_latlon_grey") %>%
-  # a bit of a hack to keep "NA" (== published) rows
-  dplyr::mutate(if_grey_Published = 
-                  tidyr::replace_na(if_grey_Published, TRUE)) %>%
-  dplyr::filter(! if_grey_Published == "yes") %>%
   dplyr::select(StudyAim) %>% 
   dplyr::group_by(StudyAim) %>% 
   dplyr::summarise(n = n()) %>% 
@@ -856,7 +860,7 @@ study_aim <-
 sum(study_aim[! study_aim$StudyAim == "Plastic interaction", ]$n)
 # %
 (sum(study_aim[! study_aim$StudyAim == "Plastic interaction", ]$n) / sum(study_aim$n)) * 100
-# >> n = 68 (79 %)
+# >> n = 69 (79 %)
 
 ## Plot - bar circular
 gg_study_aim <- 
@@ -895,10 +899,10 @@ interactions %>%
   dplyr::arrange(desc(n))
 
 # Interaction                  n    n_per_cent
-# 1 ingestion                 58       67.4
-# 2 nest                      16       18.6
-# 3 entanglement               7        8.1
-# 4 ingestion_entanglement     3        3.5
+# 1 ingestion                 58       66.7
+# 2 nest                      17       19.5
+# 3 entanglement               7        8  
+# 4 ingestion_entanglement     3        3.4
 # 5 other                      2        2.3
 
 rm("interactions")
@@ -916,12 +920,12 @@ index_data %>%
                       values_to = "value") %>%
   dplyr::group_by(metrics) %>%
   dplyr::summarise(n = sum(value),
-                   "%" = round(n/86*100, digits = 0)) %>% # 86 == total nr studies
+                   "%" = round(n/87*100, digits = 0)) %>% # 87 == total nr studies
   dplyr::arrange(desc(n))
 
 # metrics     n   `%`
 # FO         47    55 -- frequency of occurrence
-# Men        29    34 -- mention
+# Men        30    34 -- mention
 # N          28    33 -- number
 # Col        13    15 -- colour
 # O          11    13 -- occurrence
@@ -947,7 +951,7 @@ microplastics <- index_data %>% dplyr::filter(MicroPlastic == 1)
 
 rm("size", "microplastics")
 
-## Aim of the 'grey' studies in the last decade (2010--2020) ###################
+## Bonus - aim of the 'grey' studies in the last decade (2010--2020) ###################
 
 grey_aim <-
   index_raw_data %>%
@@ -956,54 +960,58 @@ grey_aim <-
   dplyr::group_by(StudyAim) %>%
   dplyr::summarise(n = n())
 
-sum(grey_aim$n) # >> 23 'grey' studies in total
+sum(grey_aim$n) # >> 23 'grey' studies in total in the last decade
 grey_aim[grey_aim$StudyAim == "plasticInteraction",]$n # >> 4 plasticInteraction
 
 grey_aim[grey_aim$StudyAim == "plasticInteraction",]$n / sum(grey_aim$n) * 100
 # >> 17.4 % of 'grey' studies in the last decade (2010--2020) had focused on 
 # plastic interactions
 
-##### sessionInfo() ############################################################
+#### sessionInfo() ############################################################
 sessionInfo()
 
-# R version 4.1.2 (2021-11-01)
+# R version 4.2.0 (2022-04-22)
 # Platform: x86_64-pc-linux-gnu (64-bit)
-# Running under: Ubuntu 20.04.3 LTS
+# Running under: Ubuntu 20.04.5 LTS
 # 
 # Matrix products: default
 # BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.9.0
 # LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.9.0
 # 
 # locale:
-# [1] LC_CTYPE=en_NZ.UTF-8       LC_NUMERIC=C              
-# [3] LC_TIME=en_NZ.UTF-8        LC_COLLATE=en_NZ.UTF-8    
-# [5] LC_MONETARY=en_NZ.UTF-8    LC_MESSAGES=en_NZ.UTF-8   
-# [7] LC_PAPER=en_NZ.UTF-8       LC_NAME=C                 
-# [9] LC_ADDRESS=C               LC_TELEPHONE=C            
-# [11] LC_MEASUREMENT=en_NZ.UTF-8 LC_IDENTIFICATION=C       
+# [1] LC_CTYPE=en_NZ.UTF-8       LC_NUMERIC=C               LC_TIME=en_NZ.UTF-8        LC_COLLATE=en_NZ.UTF-8    
+# [5] LC_MONETARY=en_NZ.UTF-8    LC_MESSAGES=en_NZ.UTF-8    LC_PAPER=en_NZ.UTF-8       LC_NAME=C                 
+# [9] LC_ADDRESS=C               LC_TELEPHONE=C             LC_MEASUREMENT=en_NZ.UTF-8 LC_IDENTIFICATION=C       
 # 
 # attached base packages:
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] ggspatial_1.1.5    patchwork_1.1.1    RColorBrewer_1.1-2 mgcv_1.8-38       
-# [5] nlme_3.1-152       sf_0.9-8           forcats_0.5.1      stringr_1.4.0     
-# [9] dplyr_1.0.6        purrr_0.3.4        readr_1.4.0        tidyr_1.1.3       
-# [13] tibble_3.1.3       ggplot2_3.3.5      tidyverse_1.3.1   
+# [1] ggspatial_1.1.6     patchwork_1.1.1     RColorBrewer_1.1-3  rnaturalearth_0.1.0 mgcv_1.8-40        
+# [6] nlme_3.1-157        sf_1.0-8            forcats_0.5.1       stringr_1.4.0       dplyr_1.0.9        
+# [11] purrr_0.3.4         readr_2.1.2         tidyr_1.2.0         tibble_3.1.7        ggplot2_3.3.6      
+# [16] tidyverse_1.3.1    
 # 
 # loaded via a namespace (and not attached):
-# [1] Rcpp_1.0.7          rnaturalearth_0.1.0 lubridate_1.7.10    lattice_0.20-45    
-# [5] class_7.3-19        assertthat_0.2.1    digest_0.6.27       utf8_1.2.2         
-# [9] R6_2.5.0            cellranger_1.1.0    backports_1.2.1     reprex_2.0.0       
-# [13] e1071_1.7-7         httr_1.4.2          pillar_1.6.2        rlang_0.4.11       
-# [17] readxl_1.3.1        rstudioapi_0.13     Matrix_1.4-0        labeling_0.4.2     
-# [21] splines_4.1.2       munsell_0.5.0       proxy_0.4-25        broom_0.7.6        
-# [25] compiler_4.1.2      modelr_0.1.8        pkgconfig_2.0.3     rgeos_0.5-5        
-# [29] tidyselect_1.1.1    viridisLite_0.4.0   fansi_0.5.0         crayon_1.4.1       
-# [33] dbplyr_2.1.1        withr_2.4.2         grid_4.1.2          jsonlite_1.7.2     
-# [37] gtable_0.3.0        lifecycle_1.0.0     DBI_1.1.1           magrittr_2.0.1     
-# [41] units_0.7-1         scales_1.1.1        KernSmooth_2.23-20  cli_3.0.1          
-# [45] stringi_1.6.2       farver_2.1.0        fs_1.5.0            sp_1.4-5           
-# [49] xml2_1.3.2          ellipsis_0.3.2      generics_0.1.0      vctrs_0.3.8        
-# [53] tools_4.1.2         glue_1.4.2          hms_1.1.0           colorspace_2.0-2   
-# [57] classInt_0.4-3      rvest_1.0.0         haven_2.4.1 
+# [1] fs_1.5.2                satellite_1.0.4         lubridate_1.8.0         bit64_4.0.5            
+# [5] webshot_0.5.3           httr_1.4.3              mapview_2.11.0          tools_4.2.0            
+# [9] backports_1.4.1         utf8_1.2.2              R6_2.5.1                KernSmooth_2.23-20     
+# [13] DBI_1.1.3               colorspace_2.0-3        raster_3.5-21           withr_2.5.0            
+# [17] sp_1.5-0                tidyselect_1.1.2        leaflet_2.1.1           bit_4.0.4              
+# [21] compiler_4.2.0          leafem_0.2.0            cli_3.3.0               rvest_1.0.2            
+# [25] xml2_1.3.3              labeling_0.4.2          scales_1.2.0            classInt_0.4-7         
+# [29] proxy_0.4-27            systemfonts_1.0.4       digest_0.6.29           svglite_2.1.0          
+# [33] base64enc_0.1-3         pkgconfig_2.0.3         htmltools_0.5.2         dbplyr_2.2.1           
+# [37] fastmap_1.1.0           htmlwidgets_1.5.4       rlang_1.0.4             readxl_1.4.0           
+# [41] rstudioapi_0.13         farver_2.1.1            generics_0.1.3          jsonlite_1.8.0         
+# [45] crosstalk_1.2.0         vroom_1.5.7             magrittr_2.0.3          s2_1.0.7               
+# [49] Matrix_1.4-1            Rcpp_1.0.9              munsell_0.5.0           fansi_1.0.3            
+# [53] lifecycle_1.0.1         terra_1.6-7             yaml_2.3.5              stringi_1.7.6          
+# [57] plyr_1.8.7              grid_4.2.0              parallel_4.2.0          crayon_1.5.1           
+# [61] lattice_0.20-45         haven_2.5.0             splines_4.2.0           hms_1.1.1              
+# [65] leafpop_0.1.0           pillar_1.7.0            uuid_1.1-0              codetools_0.2-18       
+# [69] stats4_4.2.0            wk_0.6.0                reprex_2.0.1            glue_1.6.2             
+# [73] leaflet.providers_1.9.0 modelr_0.1.8            vctrs_0.4.1             png_0.1-7              
+# [77] tzdb_0.3.0              cellranger_1.1.0        gtable_0.3.0            assertthat_0.2.1       
+# [81] broom_1.0.0             e1071_1.7-11            viridisLite_0.4.0       class_7.3-20           
+# [85] units_0.8-0             brew_1.0-7              ellipsis_0.3.2         

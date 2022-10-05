@@ -2,7 +2,7 @@
 
 Here you will find all data and code needed to reproduce the results from [Daudt et al. 2022](https://github.com/nwdaudt/review_pastic-waterbirds_Brazil#citation).
 
-In this study, we synthesised all available literature (peer-reviewed, book chapters, and academic theses) through an exhaustive review to understand the current status of knowledge about waterbirds (continental and marine) interacting with plastics in Brazil.
+In this study, we synthesised all available literature (peer-reviewed articles, book chapters, and academic theses) through an exhaustive review to understand the current status of knowledge about waterbirds (continental and marine) interacting with plastics in Brazil.
 
 Brazil is the fifth-largest county and has one of the most extensive hydrological systems in the world. Due to its large extension, Brazil offers a variety of critical habitats for more than 200 waterbird species, which are well-recognized sentinel species. We found substantial gaps: only a third of occurring waterbird species were investigated; coastal and marine studies predominate, and the vast majority did not primarily aim to study interactions between waterbirds and plastics.
 
