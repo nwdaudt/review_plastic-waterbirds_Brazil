@@ -1,6 +1,8 @@
 # Literature review about waterbird-plastic interactions in Brazil (up to December 2021)
 
-Here you will find all data and code needed to reproduce the results from [Daudt et al.](https://github.com/nwdaudt/review_pastic-waterbirds_Brazil#citation).
+Here you will find all data and code needed to reproduce the results from [Daudt et al.](https://github.com/nwdaudt/review_pastic-waterbirds_Brazil#citation). 
+
+A hard-version of this repository is archived at [![DOI](https://zenodo.org/badge/513350920.svg)](https://zenodo.org/badge/latestdoi/513350920)
 
 In this study, we synthesised all available literature (peer-reviewed articles, book chapters, and academic theses) through an exhaustive review to understand the current status of knowledge about waterbirds (continental and marine) interacting with plastics in Brazil.
 
