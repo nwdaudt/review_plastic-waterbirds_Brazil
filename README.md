@@ -1,4 +1,4 @@
-# A synthesis of waterbirds interacting with plastics in Brazil (up to December 2021)
+# Literature review about waterbird-plastic interactions in Brazil (up to December 2021)
 
 Here you will find all data and code needed to reproduce the results from [Daudt et al.](https://github.com/nwdaudt/review_pastic-waterbirds_Brazil#citation).
 
