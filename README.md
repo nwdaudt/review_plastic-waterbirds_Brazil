@@ -1,6 +1,6 @@
 # A synthesis of waterbirds interacting with plastics in Brazil (up to December 2021)
 
-Here you will find all data and code needed to reproduce the results from [Daudt et al. 2022](https://github.com/nwdaudt/review_pastic-waterbirds_Brazil#citation).
+Here you will find all data and code needed to reproduce the results from [Daudt et al.](https://github.com/nwdaudt/review_pastic-waterbirds_Brazil#citation).
 
 In this study, we synthesised all available literature (peer-reviewed articles, book chapters, and academic theses) through an exhaustive review to understand the current status of knowledge about waterbirds (continental and marine) interacting with plastics in Brazil.
 
@@ -44,6 +44,6 @@ You should be able to reproduce all results using scrips in `scripts` and files 
 ## Citation
 Please refer to the original article if using any piece of this repository (code and/or data). This repository is under CC BY 4.0 license.
 
-Daudt, N.W.; Bugoni, L.; Nunes, G.T. (2022) A synthesis of interactions between waterbirds and plastics in Brazil reveals substantial knowledge gaps and opportunities for research. (in review)
+Daudt, N.W.; Bugoni, L.; Nunes, G.T. Plastics and waterbirds in Brazil: a review of ingestion, nest materials and entanglement reveals substantial knowledge gaps and opportunities for research. <https://doi.org/10.1016/j.envpol.2022.120615>
 
 Thanks!
